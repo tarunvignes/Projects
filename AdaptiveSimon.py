@@ -1,7 +1,7 @@
 ########################################
 # Name: Tarun Vigneswaran and Ryan Soroka
-# Date: 
-# Description: 
+# Date: 2/22/2024
+# Description: Simon says blinking light game
 ########################################
 import RPi.GPIO as GPIO
 from time import sleep
