@@ -1,5 +1,7 @@
 ########################################
 # Name: Tarun Vigneswaran and Ryan Soroka
+# Date: 
+# Description: 
 # Date: 2/22/2024
 # Description: Simon says blinking light game
 ########################################
@@ -52,7 +54,7 @@ def lose():
 # each item in the sequence represents an LED (or switch), indexed at 0 through 3
 seq = []
 # Best Score of the user
-best_score=0
+best_sequence=0
 score=0
 # randomly add the first two items to the sequence
 seq.append(randint(0, 3))
@@ -85,7 +87,7 @@ try:
             speed = 0.9
 
         if (DEBUG):
-            print("speed={}".format(speed))   
+            print("speed factor={}".format(speed))   
         
         # display the sequence using the LEDs
         for s in seq:
@@ -144,22 +146,32 @@ try:
                 # player pressed the wrong switch
                 lose()
                 # display score and reset game
-                if score > best_score:
-                    best_score = score
-                    print("Your Score was: {} ****New Best Score****".format(score))
+                if score == 0:
+                    print("You didn't even make it to a sequence!")
                 else:
-                    print("Your score was : {} === Best Score : =====".format(score,best_score))
-                score=0
+                    print("You made it to a sequence of {}!".format(score))
+                    if score > best_sequence:
+                        best_sequence = score
+                        print("****New Best Sequence****".format(score))
+                    else:
+                        print("Try again your best sequence was {}".format(best_sequence))
                 print("Let's start over. Get ready!")
+                # Reinitialize the sequence for 3
                 seq = []
+                seq.append(randint(0, 3))
+                seq.append(randint(0, 3))
                 score = 0  # Reset score for new game
                 speed = 1.0  # Reset speed to initial value
                 sleep(2)  # Give player a moment before starting new sequence
                 break
+            else:
+                if score <= switch_count:
+                    score=switch_count
 
             # if the player has this item in the sequence correct, increment the count
             switch_count += 1
-            score+=1
+        # On sucessful completion keep the score so we can display later
+        score=len(seq)
 # detect Ctrl+C
 except KeyboardInterrupt:
     all_off()    
